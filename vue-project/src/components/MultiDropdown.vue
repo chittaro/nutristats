@@ -1,44 +1,59 @@
 <template>
 
-<div>
-    <div @click="clicked" class = "dropdown-bar">
-        <p>{{ title }}</p>
-        <img src = "../assets/images/arrow-down.png" style = "max-width: 20px"/>
-    </div>
-
-    <div v-on-clickaway="clickAway" v-if = "isOpened" class = "dropdown-modal">
-        <div v-for="item of options">
-        <input type = "checkbox" id = "item" value = "item" v-model="checkedItems">
-        <label for="item">{{ item }}</label>
+    <div>
+        <div @click="clicked" class = "dropdown-bar">
+            <p>{{ title }}</p>
+            <img src = "../assets/images/arrow-down-white.png" style = "max-width: 20px"/>
         </div>
-    </div>
-</div>
     
+        <div v-if = "isOpened" class = "dropdown-modal">
+            <MultiDropdownItem
+                title="All"
+                :is-all-selected="!allSelected"
+                @selected="onAllSelect"
+            ></MultiDropdownItem>
+            <div class="divider"></div>
+                
+            <div v-for="item of options">
+            <MultiDropdownItem
+                :title="item"
+                :is-all-selected="allSelected"
+                @selected="onSingleSelect"
+            ></MultiDropdownItem>
+            </div>
+        </div>
+
+    </div>
+        
 </template>
 
 <script>
-import { directive } from "vue3-click-away" //TODO: FIX
-import { sendHalls } from "../services/filter";
+
+import MultiDropdownItem from './MultiDropdownItem.vue'
+
 export default {
+    components: {
+        MultiDropdownItem
+    },
     props: {
         title: String,
-        options: Object
-    },
-    directives: {
-        ClickAway: directive
+        options: Object,
     },
     data() {
         return {
             isOpened: false,
+            allSelected: true,
         }
     },
     methods: {
-        clickAway(e) {
-            this.isOpened = false;
-        },
-        clicked(e) {
-            sendHalls(this.options);
+        clicked() {
             this.isOpened = !this.isOpened;
+        },
+        onSingleSelect() {
+            this.allSelected = false;
+        },
+        onAllSelect() {
+            this.allSelected = true;
         }
     }
 }
@@ -59,14 +74,24 @@ export default {
     justify-content: space-between;
     align-items: center;
     column-gap: 10px;
+    cursor: pointer;
 }
 
 .dropdown-modal{
     margin-top: 10px;
-    padding: 10px;
     background-color: #3C3F56;
     border-radius: 5px;
     border: 1px solid rgb(148, 148, 148);
 
+    position: relative;
+    z-index: 5;
+
 }
+
+.divider {
+    background-color: white;
+    height: 1px;
+    margin: 2px 10px;
+}
+
 </style>    

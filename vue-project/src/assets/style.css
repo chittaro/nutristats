@@ -10,6 +10,11 @@
     src: url('@/assets/fonts/Inter/Inter-Regular.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: "Inter-Bold";
+    src: url('@/assets/fonts/Inter/Inter-SemiBold.ttf') format('truetype');
+}
+
 body {
     font-family: "Inter-Light";
     font-size: 25px;
