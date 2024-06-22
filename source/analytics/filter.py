@@ -1,4 +1,5 @@
 import pandas as pd
+from source.scraping.grader import *
 
 def getBestItems(halls: list, times: list, sort: str) -> dict:
     df = pd.read_csv("data/data.csv")
@@ -12,4 +13,4 @@ def getBestItems(halls: list, times: list, sort: str) -> dict:
     df =  df.sort_values(by = [sort], ascending = False) 
 
 
-    return df.to_dict(orient = "records")
+    return df.to_dict(orient = "records")[:5]

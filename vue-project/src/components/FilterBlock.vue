@@ -26,33 +26,35 @@
 
     </div>
 
-    <div class = "sort">
-        <p>Sort By: <span class = "bold">{{ sort }}</span></p>
-        <img src = "../assets/images/filled-down-icon.png" style = "max-height: 15px"/>
-    </div>
+    <SingleDropdown
+        :options = sorts
+        @selected = "setSort"
+    ></SingleDropdown>
 
 </template>
 
 <script>
 
 import MultiDropdown from './MultiDropdown.vue'
+import SingleDropdown from './SingleDropdown.vue'
 import axios from 'axios'
 
 
 export default {
     components: {
-        MultiDropdown
+        MultiDropdown,
+        SingleDropdown
     },
     data() {
         return {
             halls: ["Bursley", "East Quad", "Markley", "Mosher Jordan", "North Quad", "South Quad", "Twigs at Oxford"],
             times: ["Breakfast", "Lunch", "Dinner"],
-            sort: 'Protein',
+            sorts: ["Nutrition Score", "Calories", "Protein", "Sugars"],
 
             chosen: {
                 halls: [],
                 times: [],
-                sort: 'Protein'
+                sort: 'Nutrition Score'
             },
             filteredList: [],
 
@@ -64,11 +66,13 @@ export default {
         async searchRequest() {
             this.hallsClosed = true
             this.timesClosed = true
-                    
+
             const payload = { halls: this.chosen.halls, times: this.chosen.times, sort: this.chosen.sort } 
             await axios.post('http://localhost:5001/filter', payload)
-                .then((res) => { this.filteredList = res.data.data })
-                .catch((error) => {console.log(error)})
+                .then((res) => { console.log("recieved"); this.filteredList = res.data.data })
+                .catch((error) => {  console.log("help"); console.log(error)})
+
+            console.log(this.filteredList)
             
             this.$emit('search', this.filteredList)
             this.hallsClosed = false
@@ -82,6 +86,9 @@ export default {
         setTimes (times) {
             this.chosen.times = times
         },
+        setSort (sort) {
+            this.chosen.sort = sort;
+        }
     },
 }
 
@@ -110,12 +117,4 @@ export default {
     align-items: center;
 }
 
-.sort {
-    padding: 20px 40px;
-    color: #313346;
-
-    display: flex; flex-direction: row;
-    align-items: center;
-    column-gap: 7px;
-}
 </style>

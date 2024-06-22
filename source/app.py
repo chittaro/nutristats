@@ -17,7 +17,7 @@ def getFilters():
 
         filtered = getBestItems(response['halls'], response['times'], response['sort'])
         print(filtered)
-        return {"message": "success", "data": filtered[:5]}
+        return {"message": "success", "data": filtered}
 
 
 @app.route('/', methods = ['GET'])
