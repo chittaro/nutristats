@@ -2,12 +2,12 @@
     <div class = "item-div">
         <div class = "title-div">
             <div class = "circle-div">
-                <p class = "num">{{ index }}</p>
+                <p class = "num">{{ index + 1 }}</p>
             </div>
             <p class="bold"> {{ food }}</p>
         </div>
 
-        <p>Score: <span class = "bold"> {{ score }} </span></p>
+        <p>Protein: <span class = "bold"> {{ protein }} </span></p>
 
         <img src = "../assets/images/arrow-down-blue.png" style = "max-height: 20px;"/>
     </div>
@@ -19,7 +19,7 @@ export default {
     props: {
         food: String,
         index: Number,
-        score: Number
+        protein: Number
     },
 }
 
@@ -44,8 +44,8 @@ export default {
 }
 
 .title-div {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 12fr;
     align-items: center;
     gap: 20px;
 }

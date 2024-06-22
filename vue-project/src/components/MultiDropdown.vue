@@ -6,11 +6,12 @@
             <img src = "../assets/images/arrow-down-white.png" style = "max-width: 20px"/>
         </div>
     
-        <div v-if = "isOpened" class = "dropdown-modal">
-            <MultiDropdownItem
+        <div v-show = "isOpened" class = "dropdown-modal">
+            <MultiDropdownItem v-click-outside="testing"
                 title="All"
                 :is-all-selected="!allSelected"
-                @selected="onAllSelect"
+                @selected="onSelect"
+                @unselected="onUnselect"
             ></MultiDropdownItem>
             <div class="divider"></div>
                 
@@ -18,7 +19,8 @@
             <MultiDropdownItem
                 :title="item"
                 :is-all-selected="allSelected"
-                @selected="onSingleSelect"
+                @selected="onSelect"
+                @unselected="onUnselect"
             ></MultiDropdownItem>
             </div>
         </div>
@@ -43,18 +45,34 @@ export default {
         return {
             isOpened: false,
             allSelected: true,
+
+            selectedItems: [],
         }
     },
     methods: {
         clicked() {
             this.isOpened = !this.isOpened;
         },
-        onSingleSelect() {
-            this.allSelected = false;
+        onSelect(item) {
+            if (item === 'All'){
+                this.selectedItems = [];
+                this.allSelected = true;
+            }
+            else {
+                this.allSelected = false;
+                this.selectedItems.push(item);
+            }
+            this.$emit('change', this.selectedItems)
+
         },
-        onAllSelect() {
-            this.allSelected = true;
+        onUnselect(item) {
+            this.selectedItems = this.selectedItems.filter(i => i !== item);
+            this.$emit('change', this.selectedItems)
+        },
+        testing() {
+            console.log("testing")
         }
+
     }
 }
 
@@ -75,6 +93,10 @@ export default {
     align-items: center;
     column-gap: 10px;
     cursor: pointer;
+}
+
+.dropdown-bar:hover {
+    background-color: #494d69;
 }
 
 .dropdown-modal{

@@ -13,7 +13,7 @@
 export default {
     props: {
         title: String,
-        isAllSelected: Boolean
+        isAllSelected: Boolean,
     },
     data() {
         return {
@@ -38,6 +38,7 @@ export default {
             // selected
             else {
                 this.selected = false;
+                this.$emit('unselected', this.title);
             }
 
         }
@@ -70,6 +71,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 10px;
 
     margin: 5px;
     padding: 5px;

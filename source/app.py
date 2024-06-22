@@ -1,24 +1,31 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask import Flask, jsonify, request, session
+from flask_cors import CORS, cross_origin
+from analytics.filter import *
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-CORS(app, resources={r'/*': {'origins': '*'}})
+CORS(app)
 
 
-message = 'none'
+@app.route('/filter', methods = ['POST'])
+def getFilters():
+    if request.method == 'POST':
+        response = request.json
+        response['halls'] = [hall.lower().replace(" ", "-") for hall in response['halls']]
+        response['sort'] = response['sort'].replace(" ", "_")
 
-# test getting dining halls
-@app.route('/filter/halls', methods=['POST'])
-def getHalls():
-    request_data = request.get_json()
-    print(request_data)
-    message = request_data
+        filtered = getBestItems(response['halls'], response['times'], response['sort'])
+        print(filtered)
+        return {"message": "success", "data": filtered[:5]}
+
 
 @app.route('/', methods = ['GET'])
 def home():
-    return message
+    if not session.get('halls'):
+        return 'no halls'
+    else:
+        return session.get('halls')
 
 
 if __name__ == '__main__':

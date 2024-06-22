@@ -1,10 +1,10 @@
 <template>
-    <FilterBlock/>
-    <div class = "items-div">
+    <FilterBlock @search="onSearch"/>
+    <div v-for="(item, index) of filteredList" class = "items-div">
         <MenuItem
-            food="Chicken Parm"
-            :index=1
-            :score=120
+            :food=item.Menu_Item
+            :index=index
+            :protein=item.Protein
         ></MenuItem>
     </div>
 </template>
@@ -18,6 +18,17 @@ export default {
     components: {
         FilterBlock,
         MenuItem
+    },
+
+    data() {
+        return {
+            filteredList: []
+        }
+    },
+    methods: {
+        onSearch(data) {
+            this.filteredList = data
+        }
     }
 }
 
@@ -25,10 +36,8 @@ export default {
 
 <style>
 .items-div {
-    padding: 40px;
+    padding: 10px 40px;
 
-    display: grid;
-    gap: 30px;
 }
 
 </style>

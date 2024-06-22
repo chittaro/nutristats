@@ -6,14 +6,16 @@
             <p>Filter</p>
         </div>
 
-        <MultiDropdown 
+        <MultiDropdown
             title = "Dining Hall"
             :options = halls
+            @change = "setHalls"
         ></MultiDropdown>
 
-        <MultiDropdown
+        <MultiDropdown ref="timeDrop"
             title = "Meal Time"
             :options = times
+            @change = "setTimes"
         ></MultiDropdown>
 
         <div>
@@ -23,7 +25,7 @@
     </div>
 
     <div class = "sort">
-        <p>Sort By: <span class = "bold">Protein</span></p>
+        <p>Sort By: <span class = "bold">{{ sort }}</span></p>
         <img src = "../assets/images/filled-down-icon.png" style = "max-height: 15px"/>
     </div>
 
@@ -32,7 +34,8 @@
 <script>
 
 import MultiDropdown from './MultiDropdown.vue'
-import axios from 'axios';
+import axios from 'axios'
+
 
 export default {
     components: {
@@ -43,24 +46,35 @@ export default {
             halls: ["Bursley", "East Quad", "Markley", "Mosher Jordan", "North Quad", "South Quad", "Twigs at Oxford"],
             times: ["Breakfast", "Lunch", "Dinner"],
             sort: 'Protein',
-            
-            testOutput: {}
+
+            chosen: {
+                halls: [],
+                times: [],
+                sort: 'Protein'
+            },
+            filteredList: [],
         }
     },
     methods: {
         async searchRequest() {
                     
-            const payload = { halls: this.halls, times: this.times, sort: this.sort } 
-            //console.log(payload.halls)
+            const payload = { halls: this.chosen.halls, times: this.chosen.times, sort: this.chosen.sort } 
 
             await axios.post('http://localhost:5001/filter', payload)
-                .then((res) => { this.testOutput = res.data.data })
+                .then((res) => { this.filteredList = res.data.data })
                 .catch((error) => {console.log(error)})
             
-            console.log(this.testOutput)
+            this.$emit('search', this.filteredList)
 
-        }
-    }
+        },
+        setHalls (halls) {
+            this.chosen.halls = halls
+
+        },
+        setTimes (times) {
+            this.chosen.times = times
+        },
+    },
 }
 
 </script>
@@ -74,7 +88,8 @@ export default {
     border-radius: 12px;
     color: white;
     height: 50px;
-    
+    font-size: 20px;
+
     display: flex;
     justify-content: flex-start;
     column-gap: 80px;
