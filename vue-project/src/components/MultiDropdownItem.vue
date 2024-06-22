@@ -1,9 +1,9 @@
 <template>
     <div class = "drop-item-div" @click="onClick">
+        <p>{{ title }}</p>
         <div class="drop-outer-circ">
             <div v-if="isSelected" class="drop-inner-circ"></div>
         </div>
-        <p>{{ title }}</p>
     </div>
     
 </template>
@@ -68,10 +68,9 @@ export default {
 }
 
 .drop-item-div {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 8fr 1fr;
     align-items: center;
-    gap: 10px;
 
     margin: 5px;
     padding: 5px;

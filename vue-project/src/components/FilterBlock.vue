@@ -9,12 +9,14 @@
         <MultiDropdown
             title = "Dining Hall"
             :options = halls
+            :forceClose = hallsClosed
             @change = "setHalls"
         ></MultiDropdown>
 
-        <MultiDropdown ref="timeDrop"
-            title = "Meal Time"
+        <MultiDropdown
+            title = "Course"
             :options = times
+            :forceClose = timesClosed
             @change = "setTimes"
         ></MultiDropdown>
 
@@ -53,18 +55,24 @@ export default {
                 sort: 'Protein'
             },
             filteredList: [],
+
+            hallsClosed: false,
+            timesClosed: false
         }
     },
     methods: {
         async searchRequest() {
+            this.hallsClosed = true
+            this.timesClosed = true
                     
             const payload = { halls: this.chosen.halls, times: this.chosen.times, sort: this.chosen.sort } 
-
             await axios.post('http://localhost:5001/filter', payload)
                 .then((res) => { this.filteredList = res.data.data })
                 .catch((error) => {console.log(error)})
             
             this.$emit('search', this.filteredList)
+            this.hallsClosed = false
+            this.timesClosed = false
 
         },
         setHalls (halls) {
@@ -88,11 +96,11 @@ export default {
     border-radius: 12px;
     color: white;
     height: 50px;
-    font-size: 20px;
+    font-size: 18px;
 
     display: flex;
     justify-content: flex-start;
-    column-gap: 80px;
+    column-gap: 60px;
 }
 
 .icon-div {
@@ -100,10 +108,6 @@ export default {
     flex-direction: row;
     column-gap: 10px;
     align-items: center;
-}
-
-.bold {
-    font-family: "Inter-Regular";
 }
 
 .sort {

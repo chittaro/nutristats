@@ -2,17 +2,16 @@
     <FilterBlock @search="onSearch"/>
     <div v-for="(item, index) of filteredList" class = "items-div">
         <MenuItem
-            :food=item.Menu_Item
+            :data=item
             :index=index
-            :protein=item.Protein
         ></MenuItem>
     </div>
 </template>
 
 <script>
 
-import FilterBlock from './FilterBlock.vue';
-import MenuItem from './MenuItem.vue'
+import FilterBlock from '../FilterBlock.vue';
+import MenuItem from '../MenuItem.vue'
 
 export default {
     components: {

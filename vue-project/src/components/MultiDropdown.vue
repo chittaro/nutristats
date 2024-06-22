@@ -2,12 +2,12 @@
 
     <div>
         <div @click="clicked" class = "dropdown-bar">
-            <p>{{ title }}</p>
-            <img src = "../assets/images/arrow-down-white.png" style = "max-width: 20px"/>
+            <p class = "title-box"><span class = "bold">{{ title }}</span> {{ titleTrail }}</p>
+            <img src = "../assets/images/arrow-down-white.png" style = "max-width: 20px;    cursor: pointer"/>
         </div>
     
         <div v-show = "isOpened" class = "dropdown-modal">
-            <MultiDropdownItem v-click-outside="testing"
+            <MultiDropdownItem
                 title="All"
                 :is-all-selected="!allSelected"
                 @selected="onSelect"
@@ -33,6 +33,7 @@
 
 import MultiDropdownItem from './MultiDropdownItem.vue'
 
+
 export default {
     components: {
         MultiDropdownItem
@@ -40,19 +41,38 @@ export default {
     props: {
         title: String,
         options: Object,
+        forceClose: Boolean,
     },
     data() {
         return {
-            isOpened: false,
+            open: false,
             allSelected: true,
-
             selectedItems: [],
         }
     },
+    computed: {
+        titleTrail() {
+            if (this.selectedItems.length === 0 || 
+                this.selectedItems.length === this.options.length) return ' | All'
+            
+            let text = ' | '
+            for (let i = 0; i < this.selectedItems.length; i++){
+                if (i !== 0) text += ', '
+                text += this.selectedItems[i]
+            }
+            return text
+        },
+        isOpened() {
+            if (this.forceClose) this.open = false
+            return this.open
+        }
+
+    },
     methods: {
         clicked() {
-            this.isOpened = !this.isOpened;
+            this.open = !this.open;
         },
+        
         onSelect(item) {
             if (item === 'All'){
                 this.selectedItems = [];
@@ -63,16 +83,11 @@ export default {
                 this.selectedItems.push(item);
             }
             this.$emit('change', this.selectedItems)
-
         },
         onUnselect(item) {
             this.selectedItems = this.selectedItems.filter(i => i !== item);
             this.$emit('change', this.selectedItems)
         },
-        testing() {
-            console.log("testing")
-        }
-
     }
 }
 
@@ -82,17 +97,23 @@ export default {
 <style>
 .dropdown-bar {
     background-color: #3C3F56;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid rgb(148, 148, 148);
     border-radius: 5px;
-    width: 200px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    column-gap: 10px;
+    width: 280px;
     cursor: pointer;
+    text-overflow: clip;
+
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    align-items: center;
+}
+
+.title-box {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
 .dropdown-bar:hover {

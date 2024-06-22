@@ -4,10 +4,18 @@
             <div class = "circle-div">
                 <p class = "num">{{ index + 1 }}</p>
             </div>
-            <p class="bold"> {{ food }}</p>
+            <div class = "title-list-div">
+                <p class="bolder"> {{ data.Menu_Item }}</p>
+                <div class = "item-subdiv">
+                        
+                    <p> <span class = "bold">Dining Hall:</span> {{ getHall }}</p>
+                    <p> <span class = "bold">Course:</span> {{ data.Course }} </p>
+                    
+                </div>
+            </div>
         </div>
 
-        <p>Protein: <span class = "bold"> {{ protein }} </span></p>
+        <p>Protein: <span class = "bold"> {{ data.Protein }} </span></p>
 
         <img src = "../assets/images/arrow-down-blue.png" style = "max-height: 20px;"/>
     </div>
@@ -17,10 +25,20 @@
 
 export default {
     props: {
-        food: String,
+        data: Object,
         index: Number,
-        protein: Number
     },
+    computed: {
+        getHall() {
+            let str = this.data.Dining_Hall
+            str = str.split("-")
+            for (let i = 0; i < str.length; i++){
+                str[i] = str[i][0].toUpperCase() + str[i].slice(1)
+            }
+            return str.join(" ")
+
+        }
+    }
 }
 
 </script>
@@ -30,7 +48,7 @@ export default {
 .num {
     font-size: 15px;
     color: white;
-    font-family: "Inter-Bold";
+    font-family: "Inter-ExtraBold";
 }
 
 .circle-div {
@@ -54,12 +72,25 @@ export default {
     background-color: #CFD8E1;
     border: 1px solid #3C3F56;
     border-radius: 25px;
-    padding: 40px 30px;
+    padding: 20px 30px;
     font-size: 25px;
 
     display: grid;
     grid-template-columns: 5fr 5fr 1fr;
     align-items: center;
+}
+
+.title-list-div {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-subdiv {
+    display: grid;
+    gap: 5px;
+    font-size: 15px;
 }
 
 </style>
