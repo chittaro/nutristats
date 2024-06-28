@@ -1,5 +1,6 @@
 <template>
     <FilterBlock @search="onSearch"/>
+    <p class = "hint" v-if="filteredList.length === 0" style="padding-top: 60px;">press the search button to generate menu options</p>
     <div v-for="(item, index) of filteredList" class = "items-div">
         <MenuItem
             :data=item
@@ -37,6 +38,11 @@ export default {
 .items-div {
     padding: 10px 40px;
 
+}
+
+.hint {
+    color: gray;
+    text-align: center;
 }
 
 </style>

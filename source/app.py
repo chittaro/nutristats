@@ -15,8 +15,7 @@ def getFilters():
         response['halls'] = [hall.lower().replace(" ", "-") for hall in response['halls']]
         response['sort'] = response['sort'].replace(" ", "_")
 
-        filtered = getBestItems(response['halls'], response['times'], response['sort'])
-        print(filtered)
+        filtered = getBestItems(response['halls'], response['times'], response['sort'], response['ascending'])
         return {"message": "success", "data": filtered}
 
 

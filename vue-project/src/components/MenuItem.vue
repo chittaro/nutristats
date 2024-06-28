@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <p>Protein: <span class = "bold"> {{ data.Protein }} </span></p>
+        <p>Score: <span class = "bold"> {{ data.Nutrition_Score }} </span></p>
 
         <img src = "../assets/images/arrow-down-blue.png" style = "max-height: 20px;"/>
     </div>

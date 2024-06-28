@@ -23,8 +23,6 @@ def scoreMenu(df: pd.DataFrame) -> pd.DataFrame:
     # Assign totals to a new column in the df
     df["Nutrition_Score"] = totals
     
-    print(df)
-
     # Return dict
     return df
     

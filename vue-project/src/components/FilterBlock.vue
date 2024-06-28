@@ -29,6 +29,7 @@
     <SingleDropdown
         :options = sorts
         @selected = "setSort"
+        @arrow = "chosen.ascending = !chosen.ascending"
     ></SingleDropdown>
 
 </template>
@@ -54,7 +55,8 @@ export default {
             chosen: {
                 halls: [],
                 times: [],
-                sort: 'Nutrition Score'
+                sort: 'Nutrition Score',
+                ascending: false
             },
             filteredList: [],
 
@@ -67,7 +69,7 @@ export default {
             this.hallsClosed = true
             this.timesClosed = true
 
-            const payload = { halls: this.chosen.halls, times: this.chosen.times, sort: this.chosen.sort } 
+            const payload = this.chosen
             await axios.post('http://localhost:5001/filter', payload)
                 .then((res) => { console.log("recieved"); this.filteredList = res.data.data })
                 .catch((error) => {  console.log("help"); console.log(error)})

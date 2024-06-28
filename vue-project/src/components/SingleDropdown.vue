@@ -10,6 +10,8 @@
         </div>
 
     </div>
+    <img class = "ascending-arrow" :class="{ rotated: isAscending }" @click="onRotate" src = "../assets/images/right-arrow.png"/>
+
 
 </div>
 
@@ -24,7 +26,8 @@ export default {
     data() {
         return {
             selected: 'Nutrition Score',
-            open: false
+            open: false,
+            isAscending: false,
         }
     },
     methods: {
@@ -32,6 +35,10 @@ export default {
             this.selected = item;
             this.open = false; 
             this.$emit('selected', item);
+        },
+        onRotate() {
+            this.isAscending = !this.isAscending;
+            this.$emit('arrow', this.isAscending);
         }
     }
 }
@@ -75,6 +82,24 @@ export default {
 
 .active {
     background-color: rgb(201, 208, 214);
+}
+
+.ascending-arrow {
+    transform: rotate(90deg);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
+    max-height: 20px;
+    cursor: pointer;
+}
+
+.ascending-arrow:hover {
+    background-color: #EFF7FF;
+
+}
+
+.rotated {
+    transform: rotate(-90deg);
 }
 
 </style>
