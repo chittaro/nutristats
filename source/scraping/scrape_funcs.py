@@ -3,12 +3,10 @@ from utils import *
 def makeURL(hall):
     return hall.lower().replace(" ", "-")
 
-
+'''
+Takes nutrion row text and outputs reformatted label and quantity
+'''
 def parseFact(fact_label: str):
-    '''
-    Takes nutrion row text and outputs reformatted label and quantity
-    '''
-
     splits = fact_label.split(' ')
     labelSplit = splits[:-1]
     valueSplit = splits[-1]
@@ -23,12 +21,11 @@ def parseFact(fact_label: str):
     return label, value
 
 
-
+'''
+Fills menu dictionary with corresponding row of values
+'''
 def fillDictRow(menu_dict: dict, dining_hall: str, course: str, menu_item: str, nutrition_input: list) -> dict:
-    '''
-    Fills menu dictionary with corresponding row of values
-    '''
-
+   
     # create empty dictionary of single entries
     temp = dict()
     for key in menu_dict:
@@ -61,12 +58,11 @@ def fillDictRow(menu_dict: dict, dining_hall: str, course: str, menu_item: str, 
     return temp
 
 
-
+'''
+Fills menu dictionary with all menu items from a singular course
+'''
 def getCourseItems(dining_hall: str, course: str, menu_dict: dict, courseHTML):
-    '''
-    Fills menu dictionary with all menu items from a singular course
-    '''
-    
+
     # list of all item sections (len = num of kitchens)
     itemClass = courseHTML.find_all("ul", { "class" : "items"}) 
 
@@ -95,7 +91,9 @@ def getCourseItems(dining_hall: str, course: str, menu_dict: dict, courseHTML):
                 menu_dict[key].append(tempDict[key])   
 
 
-
+'''
+Combines functions to convert HTML file to nutrition dictionary
+'''
 def getDhallItems(path: str, dining_hall_file: str, menu_dict: dict):
     dining_hall_str = dining_hall_file.split('.')[0]
     soup = getSoup(path, dining_hall_file)

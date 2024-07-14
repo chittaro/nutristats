@@ -6,8 +6,10 @@ CALS_FAT = 9
 CALS_CRB = 4
 CALS_PRO = 4
 
+'''
+Adds a column of total scores to the dataframe
+'''
 def scoreMenu(df: pd.DataFrame) -> pd.DataFrame:
-    '''Adds a column of total scores to the dataframe'''
 
     # Declare empty list and dict
     totals = []
@@ -26,8 +28,10 @@ def scoreMenu(df: pd.DataFrame) -> pd.DataFrame:
     # Return dict
     return df
     
+'''
+Calculates each category score (and total) for item. Returns dictionary with categories as keys and scores as vals
+'''
 def calcScores(row: pd.Series) -> dict:
-    '''Calculates each category score (and total) for item. Returns dictionary with categories as keys and scores as vals.'''
 
     # Calculate subscores
     sc_tf = 1 if row["Trans_Fat"] == 0 else 0

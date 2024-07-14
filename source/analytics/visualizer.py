@@ -21,9 +21,11 @@ CALS_PRO = 4
 NORM = mpl.colors.Normalize(1, 100)
 CMAP = mpl.colors.LinearSegmentedColormap.from_list("gr", ["r", "w", "g"], N = 100)
 
+'''
+Calculates each category score and total for each item
+'''
 def calcScores(row: pd.Series) -> dict:
-    '''Calculates each category score and total for each item'''
-
+    
     # Calculate subscores
     sc_tf = 1 if row["Trans_Fat"] == 0 else 0
     sc_sf = 1 - (CALS_FAT * row["Saturated_Fat"] / row["Calories"])
@@ -45,8 +47,10 @@ def calcScores(row: pd.Series) -> dict:
     
     return scores
 
+'''
+Create a graph for a given food
+'''   
 def make_graph(vals: dict[str, float]):
-    '''Create a graph for a given food'''   
 
     # Create circular plot with given offset
     fig, ax = plt.subplots(figsize = (7.5, 7.5), subplot_kw = {"projection": "polar"})
@@ -95,9 +99,10 @@ def make_graph(vals: dict[str, float]):
     
     return ax
 
-
+'''
+Returns rotation and alignment in degrees
+'''
 def get_label_rotation(angle, offset):
-    '''Returns rotation and alignment in degrees'''
 
     rotation = np.rad2deg(angle + offset)
 
