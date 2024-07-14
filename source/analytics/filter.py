@@ -1,6 +1,9 @@
 import pandas as pd
 
 def getBestItems(halls: list, times: list, sort: str, ascend: bool) -> dict:
+    halls = [hall.lower().replace(" ", "-") for hall in halls]
+    sort = sort.replace(" ", "_")
+
     df = pd.read_csv("data/data.csv")
 
     if len(halls) > 0:

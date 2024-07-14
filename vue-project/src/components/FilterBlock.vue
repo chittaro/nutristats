@@ -71,10 +71,8 @@ export default {
 
             const payload = this.chosen
             await axios.post('http://localhost:5001/filter', payload)
-                .then((res) => { console.log("recieved"); this.filteredList = res.data.data })
-                .catch((error) => {  console.log("help"); console.log(error)})
-
-            console.log(this.filteredList)
+                .then((res) => { this.filteredList = res.data.data })
+                .catch((error) => { console.log(error)})
             
             this.$emit('search', this.filteredList)
             this.hallsClosed = false

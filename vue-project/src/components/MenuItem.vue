@@ -1,5 +1,5 @@
 <template>
-    <div class = "item-div">
+    <div @click="isOpened = !isOpened" :class="['item-div', {isOpened: item-opened}]">
         <div class = "title-div">
             <div class = "circle-div">
                 <p class = "num">{{ index + 1 }}</p>
@@ -19,6 +19,15 @@
 
         <img src = "../assets/images/arrow-down-blue.png" style = "max-height: 20px;"/>
     </div>
+    <div v-show="isOpened" class = "details-div">
+        <p>Calories: <span class = "bold"> {{ data.Calories }} </span></p>
+        <p>Protein: <span class = "bold"> {{ data.Protein }}g</span></p>
+        <p>Fiber: <span class = "bold"> {{ data.Dietary_Fiber }}g</span></p>
+        <p>Sodium: <span class = "bold"> {{ data.Sodium }}mg</span></p>
+        <p>Saturated Fat: <span class = "bold"> {{ data.Saturated_Fat }}g</span></p>
+        <p>Sugar: <span class = "bold"> {{ data.Sugars }}g</span></p>
+    </div>
+
 </template>
 
 <script>
@@ -27,6 +36,11 @@ export default {
     props: {
         data: Object,
         index: Number,
+    },
+    data() {
+        return {
+            isOpened: false,
+        }
     },
     computed: {
         getHall() {
@@ -49,6 +63,12 @@ export default {
     font-size: 15px;
     color: white;
     font-family: "Inter-ExtraBold";
+}
+
+.item-opened {
+    background-color: red;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .circle-div {
@@ -80,6 +100,11 @@ export default {
     align-items: center;
 }
 
+.item-div:hover {
+    background-color: #d9e3ee;
+    cursor: pointer;
+}
+
 .title-list-div {
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -91,6 +116,18 @@ export default {
     display: grid;
     gap: 5px;
     font-size: 15px;
+}
+
+.details-div {
+    background-color: #CFD8E1;
+    padding: 20px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content:space-around;
+    align-items: center;
 }
 
 </style>

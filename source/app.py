@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, session
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from analytics.filter import *
 
 app = Flask(__name__)
@@ -12,10 +12,8 @@ CORS(app)
 def getFilters():
     if request.method == 'POST':
         response = request.json
-        response['halls'] = [hall.lower().replace(" ", "-") for hall in response['halls']]
-        response['sort'] = response['sort'].replace(" ", "_")
-
         filtered = getBestItems(response['halls'], response['times'], response['sort'], response['ascending'])
+
         return {"message": "success", "data": filtered}
 
 
