@@ -37,8 +37,8 @@
 <script>
 
 import { DINING_HALLS, MEAL_TIMES } from '../common/constants';
-import MultiDropdown from './MultiDropdown.vue'
-import SingleDropdown from './SingleDropdown.vue'
+import MultiDropdown from './form_elements/MultiDropdown.vue'
+import SingleDropdown from './form_elements/SingleDropdown.vue'
 import axios from 'axios'
 
 

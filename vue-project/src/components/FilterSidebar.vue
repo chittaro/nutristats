@@ -18,16 +18,22 @@
             <p>Nutrition</p>
         </div>
 
+        <RangeSlider>
+
+        </RangeSlider>
+
     </div>
 </template>
 
 <script>
 import { DINING_HALLS } from '../common/constants';
-import MultiDropdown from './MultiDropdown.vue';
+import MultiDropdown from './form_elements/MultiDropdown.vue';
+import RangeSlider from './form_elements/RangeSlider.vue';
 
 export default {
     components: {
-        MultiDropdown
+        MultiDropdown,
+        RangeSlider
     },
     data() {
         return {
@@ -36,7 +42,7 @@ export default {
                 halls: [],
             },
         }
-    }
+    },
 }
 
 </script>

@@ -3,7 +3,7 @@
     <div>
         <div @click="clicked" class = "dropdown-bar">
             <p class = "title-box"><span class = "bold">{{ title }}</span> {{ titleTrail }}</p>
-            <img src = "../assets/images/arrow-down-white.png" style = "max-width: 20px;    cursor: pointer"/>
+            <img src = "../../assets/images/arrow-down-white.png" style = "max-width: 20px;    cursor: pointer"/>
         </div>
         <div v-show = "isOpened" class = "dropdown-modal">
             <MultiDropdownItem
