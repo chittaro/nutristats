@@ -36,6 +36,7 @@
 
 <script>
 
+import { DINING_HALLS, MEAL_TIMES } from '../common/constants';
 import MultiDropdown from './MultiDropdown.vue'
 import SingleDropdown from './SingleDropdown.vue'
 import axios from 'axios'
@@ -48,8 +49,8 @@ export default {
     },
     data() {
         return {
-            halls: ["Bursley", "East Quad", "Markley", "Mosher Jordan", "North Quad", "South Quad", "Twigs at Oxford"],
-            times: ["Breakfast", "Lunch", "Dinner"],
+            halls: DINING_HALLS,
+            times: MEAL_TIMES,
             sorts: ["Nutrition Score", "Calories", "Protein", "Sugars"],
 
             chosen: {
@@ -95,7 +96,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 
 .filter-div {
     background-color: #313346;

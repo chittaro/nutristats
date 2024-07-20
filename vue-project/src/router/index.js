@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MenuPage from '../components/pages/MenuPage.vue'
-import GraphPage from '../components/pages/GraphPage.vue'
+import PlannerPage from '../components/pages/PlannerPage.vue'
 import AboutPage from '../components/pages/AboutPage.vue'
 
 const router = createRouter({
@@ -12,9 +12,9 @@ const router = createRouter({
       component: MenuPage
     },
     {
-      path: '/graphs',
-      name: 'graph-display',
-      component: GraphPage
+      path: '/planner',
+      name: 'plannerPage',
+      component: PlannerPage
     },
     {
       path: '/about',

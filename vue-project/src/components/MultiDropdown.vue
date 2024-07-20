@@ -38,9 +38,18 @@ export default {
         MultiDropdownItem
     },
     props: {
-        title: String,
-        options: Object,
-        forceClose: Boolean,
+        title: {
+            type: String,
+            required: true
+        },
+        options: {
+            type: Object,
+            required: true
+        },
+        forceClose:{
+            type: Boolean,
+            required: true
+        },
     },
     data() {
         return {
@@ -93,7 +102,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .dropdown-bar {
     background-color: #3C3F56;
     padding: 8px;

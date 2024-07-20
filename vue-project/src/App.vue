@@ -4,7 +4,7 @@
     <div class = "nav-bar">
       
       <RouterLink class = "nav-link" to = "/filter">Home</RouterLink>
-      <RouterLink class = "nav-link" to = "/graphs">Graphs</RouterLink>
+      <RouterLink class = "nav-link" to = "/planner">Planner</RouterLink>
       <RouterLink class = "nav-link" to = "/about">About</RouterLink>
       
     </div>

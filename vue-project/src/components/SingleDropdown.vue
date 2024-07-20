@@ -45,7 +45,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 .sort {
     padding: 20px 40px;
